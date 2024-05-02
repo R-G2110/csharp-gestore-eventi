@@ -51,7 +51,7 @@ namespace csharp_gestore_eventi
         {
             string titoloProgrammaCapitalized = char.ToUpper(TitoloProgramma[0]) + TitoloProgramma.Substring(1);
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"\n{titoloProgrammaCapitalized}");
+            sb.AppendLine($"{titoloProgrammaCapitalized}");
             return sb.ToString();
         }
 
