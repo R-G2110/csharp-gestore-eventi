@@ -1,38 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace csharp_gestore_eventi
+﻿namespace csharp_gestore_eventi
 {
-
     public class Evento
     {
-        public string Titolo { get; set; }
-        public DateTime Data { get; set; }
-        private int capienzaMax;
-        private int postiPrenotati;
-
-        public int CapienzaMax { get => capienzaMax; }
-        public int PostiPrenotati { get => postiPrenotati; }
+        public string Titolo { get; private set; }
+        public DateTime Data { get; private set; }
+        public int CapienzaMax { get; private set; }
+        public int PostiPrenotati { get; private set; }
 
         public Evento(string titolo, DateTime data, int capienza)
         {
             SetTitolo(titolo);
             SetData(data);
             SetCapienzaMax(capienza);
-            postiPrenotati = 0;
+            PostiPrenotati = 0;
         }
 
-        public void SetTitolo(string titolo)
+        private void SetTitolo(string titolo)
         {
             if (string.IsNullOrWhiteSpace(titolo))
                 throw new ArgumentException("Il titolo non può essere vuoto.");
             Titolo = titolo;
         }
 
-        public void SetData(DateTime data)
+        private void SetData(DateTime data)
         {
             if (data < DateTime.Now.Date)
                 throw new ArgumentException("La data dell'evento non può essere nel passato.");
@@ -43,33 +33,31 @@ namespace csharp_gestore_eventi
         {
             if (capienza <= 0)
                 throw new ArgumentException("La capienza massima deve essere maggiore di zero.");
-            capienzaMax = capienza;
+            CapienzaMax = capienza;
         }
 
         public void PrenotaPosti(int posti)
         {
             if (Data < DateTime.Now.Date)
                 throw new InvalidOperationException("Non è possibile prenotare posti per un evento passato.");
-            if (postiPrenotati + posti > capienzaMax)
+            if (PostiPrenotati + posti > CapienzaMax)
                 throw new InvalidOperationException("Non ci sono abbastanza posti disponibili.");
-            postiPrenotati += posti;
+            PostiPrenotati += posti;
         }
 
         public void DisdiciPosti(int posti)
         {
             if (Data < DateTime.Now.Date)
                 throw new InvalidOperationException("Non è possibile disdire posti per un evento passato.");
-            if (posti > postiPrenotati)
+            if (posti > PostiPrenotati)
                 throw new InvalidOperationException("Non ci sono abbastanza posti prenotati da disdire.");
-            postiPrenotati -= posti;
+            PostiPrenotati -= posti;
         }
 
         public override string ToString()
         {
-            string titoloCapitalized = char.ToUpper(Titolo[0]) + Titolo.Substring(1);
-            return Data.ToString("dd/MM/yyyy") + " - " + titoloCapitalized;
+            return $"{Data.ToString("dd/MM/yyyy")} - {char.ToUpper(Titolo[0]) + Titolo.Substring(1)}";
         }
-
     }
 
 

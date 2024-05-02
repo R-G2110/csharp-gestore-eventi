@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace csharp_gestore_eventi
 {
@@ -24,7 +20,14 @@ namespace csharp_gestore_eventi
 
         public List<Evento> TrovaEventiPerData(DateTime data)
         {
-            return Eventi.Where(e => e.Data.Date == data.Date).ToList();
+            List<Evento> eventiInData = Eventi.Where(e => e.Data.Date == data.Date).ToList();
+
+            if (eventiInData.Count == 0)
+            {
+                Console.WriteLine($"\n*** Nessun evento in data {data.ToString("dd/MM/yyyy")} ***");
+            }
+
+            return eventiInData;
         }
 
         public static string StampaEventi(List<Evento> eventi)
@@ -32,7 +35,7 @@ namespace csharp_gestore_eventi
             StringBuilder sb = new StringBuilder();
             foreach (var evento in eventi)
             {
-                sb.AppendLine($"         {evento}");
+                sb.AppendLine($"{evento}");
             }
             return sb.ToString();
         }
@@ -49,13 +52,7 @@ namespace csharp_gestore_eventi
 
         public override string ToString()
         {
-            string titoloProgrammaCapitalized = char.ToUpper(TitoloProgramma[0]) + TitoloProgramma.Substring(1);
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"{titoloProgrammaCapitalized}");
-            return sb.ToString();
+            return $"{char.ToUpper(TitoloProgramma[0]) + TitoloProgramma.Substring(1)}";
         }
-
     }
-
-
 }

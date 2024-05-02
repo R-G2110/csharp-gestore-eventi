@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace csharp_gestore_eventi
+﻿namespace csharp_gestore_eventi
 {
     public class Conferenza : Evento
     {
@@ -14,21 +12,9 @@ namespace csharp_gestore_eventi
             Prezzo = prezzo;
         }
 
-        public string GetDataOraFormattata()
-        {
-            return Data.ToString("dd/MM/yyyy");
-        }
-
-        public string GetPrezzoFormattato()
-        {
-            return Prezzo.ToString("0.00") + " euro";
-        }
-
         public override string ToString()
         {
-            string titoloCapitalized = char.ToUpper(Titolo[0]) + Titolo.Substring(1);
-            string relatoreCapitalized = char.ToUpper(Relatore[0]) + Relatore.Substring(1);
-            return $"{GetDataOraFormattata()} - {titoloCapitalized} - {relatoreCapitalized} - {GetPrezzoFormattato()}";
+            return $"{Data.ToString("dd/MM/yyyy")} - {char.ToUpper(Titolo[0]) + Titolo.Substring(1)} - {char.ToUpper(Relatore[0]) + Relatore.Substring(1)} - {Prezzo.ToString("0.00")} euro";
         }
     }
 }
